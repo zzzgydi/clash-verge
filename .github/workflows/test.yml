@@ -1,0 +1,34 @@
+name: Test CI
+
+on:
+  push:
+    branches: [test]
+
+jobs:
+  build-tauri:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: install Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: install app dependencies and build it
+        run: yarn && yarn run predev && yarn build
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: clash-verge-v__VERSION__
+          releaseName: "Clash Verge v__VERSION__"
+          releaseBody: "This is a test release."
+          releaseDraft: true
+          prerelease: false
