@@ -32,3 +32,4 @@ jobs:
           releaseBody: "This is a test release."
           releaseDraft: true
           prerelease: false
+          tauriScript: "yarn build"
