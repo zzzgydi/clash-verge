@@ -21,6 +21,8 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+      - name: install tauri
+        run: cargo install tauri-cli --version ^1.0.0-beta
       - name: install app dependencies and build it
         run: yarn && yarn run predev && yarn build
       - uses: tauri-apps/tauri-action@v0
