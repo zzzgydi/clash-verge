@@ -41,7 +41,7 @@ jobs:
             src-tauri/target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - name: install app dependencies and build it
-        run: yarn && yarn run predev && yarn build
+        run: yarn && yarn run predev
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
