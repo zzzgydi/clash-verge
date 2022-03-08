@@ -47,7 +47,6 @@ async function resolveSidecar() {
   const sidecarDir = path.join(cwd, "src-tauri", "sidecar");
 
   const host = execSync("rustc -vV | grep host").toString().slice(6).trim();
-  console.log('fuck', host)
   const ext = process.platform === "win32" ? ".exe" : "";
   const sidecarFile = `clash-${host}${ext}`;
   const sidecarPath = path.join(sidecarDir, sidecarFile);
