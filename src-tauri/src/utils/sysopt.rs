@@ -94,15 +94,11 @@ impl SysProxyConfig {
   }
 
   #[cfg(target_os = "linux")]
-  /// Get the macos system proxy config
   pub fn get_sys() -> io::Result<Self> {
     let http_proxy = std::env::var("http_proxy").unwrap_or("".to_string());
     let https_proxy = std::env::var("https_proxy").unwrap_or("".to_string());
     let sock_proxy = std::env::var("all_proxy").unwrap_or("".to_string());
     let bypass = std::env::var("no_proxy").unwrap_or(DEFAULT_BYPASS.to_string());
-    // let http = macproxy::get_proxy(&["-getwebproxy", MACOS_SERVICE])?;
-    // let https = macproxy::get_proxy(&["-getsecurewebproxy", MACOS_SERVICE])?;
-    // let sock = macproxy::get_proxy(&["-getsocksfirewallproxy", MACOS_SERVICE])?;
 
     let mut enable = false;
     let mut server = "".into();
