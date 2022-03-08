@@ -93,6 +93,40 @@ impl SysProxyConfig {
     })
   }
 
+  #[cfg(target_os = "linux")]
+  /// Get the macos system proxy config
+  pub fn get_sys() -> io::Result<Self> {
+    let http_proxy = std::env::var("http_proxy").unwrap_or("".to_string());
+    let https_proxy = std::env::var("https_proxy").unwrap_or("".to_string());
+    let sock_proxy = std::env::var("all_proxy").unwrap_or("".to_string());
+    let bypass = std::env::var("no_proxy").unwrap_or(DEFAULT_BYPASS.to_string());
+    // let http = macproxy::get_proxy(&["-getwebproxy", MACOS_SERVICE])?;
+    // let https = macproxy::get_proxy(&["-getsecurewebproxy", MACOS_SERVICE])?;
+    // let sock = macproxy::get_proxy(&["-getsocksfirewallproxy", MACOS_SERVICE])?;
+
+    let mut enable = false;
+    let mut server = "".into();
+
+    if !sock_proxy.is_empty() {
+      enable = true;
+      server = sock_proxy;
+    }
+    if !https_proxy.is_empty() {
+      enable = true;
+      server = https_proxy;
+    }
+    if !http_proxy.is_empty() || !enable {
+      enable = true;
+      server = http_proxy;
+    }
+
+    Ok(SysProxyConfig {
+      enable,
+      server,
+      bypass: bypass.into(),
+    })
+  }
+
   #[cfg(target_os = "windows")]
   /// Set the windows system proxy config
   pub fn set_sys(&self) -> io::Result<()> {
@@ -119,6 +153,16 @@ impl SysProxyConfig {
     macproxy::set_proxy("-setwebproxy", MACOS_SERVICE, enable, server)?;
     macproxy::set_proxy("-setsecurewebproxy", MACOS_SERVICE, enable, server)?;
     macproxy::set_proxy("-setsocksfirewallproxy", MACOS_SERVICE, enable, server)
+  }
+
+  #[cfg(target_os = "linux")]
+  pub fn set_sys(&self) -> io::Result<()> {
+    let enable = self.enable;
+    let server = self.server.as_str();
+    std::env::set_var("http_proxy", server);
+    std::env::set_var("https_proxy", server);
+    std::env::set_var("all_proxy", server);
+    Ok(())
   }
 }
 

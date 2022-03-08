@@ -22,6 +22,7 @@ function resolveClash() {
     "win32-x64": "clash-windows-386",
     "darwin-x64": "clash-darwin-amd64",
     "darwin-arm64": "clash-darwin-arm64",
+    "linux-x64": "clash-linux-amd64"
   };
 
   const name = map[`${platform}-${arch}`];
@@ -46,6 +47,7 @@ async function resolveSidecar() {
   const sidecarDir = path.join(cwd, "src-tauri", "sidecar");
 
   const host = execSync("rustc -vV | grep host").toString().slice(6).trim();
+  console.log('fuck', host)
   const ext = process.platform === "win32" ? ".exe" : "";
   const sidecarFile = `clash-${host}${ext}`;
   const sidecarPath = path.join(sidecarDir, sidecarFile);
