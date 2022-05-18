@@ -104,10 +104,23 @@ fn main() -> std::io::Result<()> {
       },
       #[cfg(target_os = "windows")]
       SystemTrayEvent::LeftClick { .. } => {
-        let window = app_handle.get_window("main").unwrap();
-        window.unminimize().unwrap();
-        window.show().unwrap();
-        window.set_focus().unwrap();
+        tauri::window::WindowBuilder::new(
+          app_handle,
+          "main".to_string(),
+          tauri::WindowUrl::App("index.html".into()),
+        )
+        .title("Clash Verge")
+        .center()
+        .decorations(false)
+        .fullscreen(false)
+        .inner_size(800.0, 636.0)
+        .min_inner_size(600.0, 520.0)
+        .build()
+        .err()
+        .and_then(|e| {
+          log::error!("{e}");
+          Some(0)
+        });
       }
       _ => {}
     })
