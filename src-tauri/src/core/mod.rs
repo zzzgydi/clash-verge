@@ -93,7 +93,7 @@ impl Core {
     if silent_start.unwrap_or(false) {
       let window = self.window.lock();
       window.as_ref().map(|win| {
-        win.hide().unwrap();
+        win.close().unwrap();
       });
     }
 
