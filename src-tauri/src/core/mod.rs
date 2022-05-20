@@ -93,7 +93,7 @@ impl Core {
     if silent_start.unwrap_or(false) {
       let window = self.window.lock();
       window.as_ref().map(|win| {
-        win.close().unwrap();
+        win.hide().unwrap();
       });
     }
 
@@ -382,7 +382,13 @@ impl Core {
       result.error.map(|err| log::error!("{err}"));
     });
 
-    window.emit("script-handler", payload).unwrap();
+    let verge = self.verge.lock();
+    let silent_start = verge.enable_silent_start.clone();
+    if silent_start.unwrap_or(false) {
+      window.emit("script-handler-close", payload).unwrap();
+    } else {
+      window.emit("script-handler", payload).unwrap();
+    }
 
     Ok(())
   }

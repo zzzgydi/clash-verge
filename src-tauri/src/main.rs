@@ -182,7 +182,7 @@ fn main() -> std::io::Result<()> {
     .build(tauri::generate_context!())
     .expect("error while running tauri application")
     .run(|app_handle, e| match e {
-      tauri::RunEvent::ExitRequested { .. } => {
+      tauri::RunEvent::ExitRequested { api, .. } => {
         api.prevent_exit();
       }
       tauri::RunEvent::Exit => {
