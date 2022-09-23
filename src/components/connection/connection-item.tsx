@@ -50,6 +50,8 @@ const ConnectionItem = (props: Props) => {
 
             {chains.length > 0 && <Tag>{chains[value.chains.length - 1]}</Tag>}
 
+            {chains.length > 0 && <Tag>{chains[0]}</Tag>}
+
             <Tag>{dayjs(start).fromNow()}</Tag>
 
             {showTraffic && (
