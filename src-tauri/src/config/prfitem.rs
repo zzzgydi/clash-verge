@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 use serde_yaml::Mapping;
 use std::fs;
 use sysproxy::Sysproxy;
+use tauri::regex::Regex;
 
 use super::Config;
 
@@ -276,10 +277,21 @@ impl PrfItem {
             },
             None => None,
         };
+        let re=Regex::new(r"(\?|&)name=([^&]*)(&|$)").unwrap();
+        let mut defname="Remote Profile";
+        match re.captures(url) {
+            Some(caps) => {
+                defname = caps.get(2).unwrap().as_str();        
+            }
+            None => {
+                // The regex did not match. Deal with it here!
+            }
+        }
+        
 
         let uid = help::get_uid("r");
         let file = format!("{uid}.yaml");
-        let name = name.unwrap_or(filename.unwrap_or("Remote File".into()));
+        let name = name.unwrap_or(filename.unwrap_or(defname.into()));
         let data = resp.text_with_charset("utf-8").await?;
 
         // check the data whether the valid yaml format
