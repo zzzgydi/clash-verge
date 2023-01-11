@@ -17,7 +17,6 @@ import { useVerge } from "@/hooks/use-verge";
 import { ReactComponent as LogoSvg } from "@/assets/image/logo.svg";
 import { BaseErrorBoundary, Notice } from "@/components/base";
 import LayoutItem from "@/components/layout/layout-item";
-import LayoutControl from "@/components/layout/layout-control";
 import LayoutTraffic from "@/components/layout/layout-traffic";
 import UpdateButton from "@/components/layout/update-button";
 import useCustomTheme from "@/components/layout/use-custom-theme";
@@ -130,12 +129,6 @@ const Layout = () => {
           </div>
 
           <div className="layout__right" data-windrag>
-            {OS !== "macos" && (
-              <div className="the-bar">
-                <LayoutControl />
-              </div>
-            )}
-
             <div className="the-content">
               <BaseErrorBoundary>
                 <Routes>
