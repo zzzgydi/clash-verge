@@ -9,11 +9,38 @@ mod core;
 mod enhance;
 mod feat;
 mod utils;
+mod deep_link;
 
-use crate::utils::{init, resolve, server};
+use crate::utils::{init, resolve, server, help};
 use tauri::{api, SystemTray};
+use std::fs::File;
+use std::io::Write;
 
-fn main() -> std::io::Result<()> {
+#[tokio::main]
+async fn main() -> std::io::Result<()> {
+    // Deep linking
+    
+    deep_link::prepare("top.gydi.clashverg");
+
+    let register_res = deep_link::register("clashy",| deep_link | async move {
+        // Convert deep link to something that import_profile can use
+        let profile_url_and_name = help::convert_deeplink_to_url_for_import_profile(&deep_link);
+        // If deep link is invalid we just ignore
+        if profile_url_and_name.is_err(){
+            return
+        }
+        
+        // Import profile
+        if let Ok(_) = cmds::import_profile(profile_url_and_name.unwrap(), None).await{
+          
+        }
+    }).await;
+
+    // If we couldn't register, we log it
+    if register_res.is_err(){
+        println!("We can't register deep link scheme for program | {}",register_res.err().unwrap())
+    }
+
     // 单例检测
     if server::check_singleton().is_err() {
         println!("app exists");
