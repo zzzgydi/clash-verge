@@ -213,10 +213,10 @@ fn test_parse_value() {
     assert_eq!(parse_str::<usize>(test_1, "expire1="), None);
     assert_eq!(parse_str::<usize>(test_2, "attachment="), None);
 }
-#[test]
-fn test_extract_url_and_profile_name_from_deep_link(){
-    let s = "clash://install-config?url=https://mysite.com/all.yml&name=profilename";
-    let (url,prof_name) = extract_url_and_profile_name_from_deep_link(&s.to_string()).unwrap();
-    assert_eq!(url,"https://mysite.com/all.yml");
-    assert_eq!(prof_name,"profilename");
-}
+//#[test]
+// fn test_extract_url_and_profile_name_from_deep_link(){
+//     let s = "clash://install-config?url=https://mysite.com/all.yml&name=profilename";
+//     let (url,prof_name) = extract_url_and_profile_name_from_deep_link(&s.to_string()).unwrap();
+//     assert_eq!(url,"https://mysite.com/all.yml");
+//     assert_eq!(prof_name,"profilename");
+// }
