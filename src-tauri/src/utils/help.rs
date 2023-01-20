@@ -109,31 +109,31 @@ pub fn open_file(path: PathBuf) -> Result<()> {
 pub enum ExtractDeeplinkError{
     InvalidInput
 }
-pub fn extract_url_and_profile_name_from_deep_link(deep_link:&String) -> Result<(String,String),ExtractDeeplinkError>{
-    // Sample: clash://install-config?url=https://mysite.com/all.yml&name=profilename
-    let (url,profile) = {
-        let pruned = deep_link.split("url=").collect::<Vec<_>>();
-        if pruned.len() < 2 {
-            return Err(ExtractDeeplinkError::InvalidInput)
-        }
-        let url_and_profile_name = pruned[1].split("&").collect::<Vec<_>>();
-        if url_and_profile_name.len() < 2{
-            return Err(ExtractDeeplinkError::InvalidInput)
-        }
-        let url = url_and_profile_name[0].to_string();
-        let profile_name = {
-            let splitted: Vec<_> = url_and_profile_name[1].split("=").collect();
-            if splitted.len() < 2 {
-                return Err(ExtractDeeplinkError::InvalidInput)
-            }
-            splitted[1].to_string()
-        };
+// pub fn extract_url_and_profile_name_from_deep_link(deep_link:&String) -> Result<(String,String),ExtractDeeplinkError>{
+//     // Sample: clash://install-config?url=https://mysite.com/all.yml&name=profilename
+//     let (url,profile) = {
+//         let pruned = deep_link.split("url=").collect::<Vec<_>>();
+//         if pruned.len() < 2 {
+//             return Err(ExtractDeeplinkError::InvalidInput)
+//         }
+//         let url_and_profile_name = pruned[1].split("&").collect::<Vec<_>>();
+//         if url_and_profile_name.len() < 2{
+//             return Err(ExtractDeeplinkError::InvalidInput)
+//         }
+//         let url = url_and_profile_name[0].to_string();
+//         let profile_name = {
+//             let splitted: Vec<_> = url_and_profile_name[1].split("=").collect();
+//             if splitted.len() < 2 {
+//                 return Err(ExtractDeeplinkError::InvalidInput)
+//             }
+//             splitted[1].to_string()
+//         };
 
-        (url,profile_name)
-    };
+//         (url,profile_name)
+//     };
 
-    return Ok((url,profile));
-}
+//     return Ok((url,profile));
+// }
 
 pub fn convert_deeplink_to_url_for_import_profile(deep_link:&String) -> Result<String,ExtractDeeplinkError>{
     // Sample: clash://install-config?url=https://mysite.com/all.yml&name=profilename
