@@ -21,6 +21,7 @@ static ID: OnceCell<String> = OnceCell::new();
 ///
 /// # Errors
 /// If ID was already set this functions returns an error containing the ID as String.
+#[allow(unused)]
 pub fn set_identifier(identifier: &str) -> Result<(), String> {
     ID.set(identifier.to_string())
 }
