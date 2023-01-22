@@ -12,33 +12,34 @@ mod utils;
 mod deep_link;
 
 use crate::utils::{init, resolve, server, help};
+use crate::core::handle::Handle;
 use tauri::{api, SystemTray};
-use std::fs::File;
-use std::io::Write;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
-    // Deep linking
     
+    // Deep linking
     deep_link::prepare("top.gydi.clashverg");
-
-    let register_res = deep_link::register("clashy",| deep_link | async move {
+    
+    let deep_link_register_result = deep_link::register("clashy",| deep_link | async move {
         // Convert deep link to something that import_profile can use
         let profile_url_and_name = help::convert_deeplink_to_url_for_import_profile(&deep_link);
-        // If deep link is invalid we just ignore
+        // If deep link is invalid, we pop up a message to user
         if profile_url_and_name.is_err(){
-            return
+            Handle::notice_message("set_config::error", "Profile url is invalid");
         }
         
         // Import profile
-        if let Ok(_) = cmds::import_profile(profile_url_and_name.unwrap(), None).await{
-          
+        let import_result = cmds::import_profile(profile_url_and_name.unwrap(), None).await;
+        // If we couldn't import profile& we pop up a message to user
+        if import_result.is_err(){
+            Handle::notice_message("set_config::error",format!("Profile url is invalid | {}", import_result.err().unwrap()));
         }
     }).await;
 
     // If we couldn't register, we log it
-    if register_res.is_err(){
-        println!("We can't register deep link scheme for program | {}",register_res.err().unwrap())
+    if deep_link_register_result.is_err(){
+        println!("We can't register deep link scheme for program | {}",deep_link_register_result.err().unwrap())
     }
 
     // 单例检测
