@@ -220,3 +220,13 @@ fn test_parse_value() {
 //     assert_eq!(url,"https://mysite.com/all.yml");
 //     assert_eq!(prof_name,"profilename");
 // }
+#[test]
+fn test_convert_deeplink_to_url_for_import_profile(){
+    let s = "clashy://install-config?url=https://antyfilter.aeycia.cl/80467cf865c2ef1af111716ddf30dd29/80467cf865c2ef1af111716ddf30dd29/clash/all.yml&name=all_antyfilter.aeycia.cl";
+    let res = convert_deeplink_to_url_for_import_profile(&s.to_string());
+    if res.is_err(){
+        println!("Test failed: {:?}",res.err().unwrap())
+    }else{
+        panic!("Test successfully completed")
+    }
+}
