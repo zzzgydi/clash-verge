@@ -1,11 +1,10 @@
 use std::{
     io::{BufRead, BufReader, Write},
-    path::Path, process::Output, future::IntoFuture,
+    path::Path,
 };
 
 use interprocess::local_socket::{LocalSocketListener, LocalSocketStream};
 use warp::Future;
-use ::futures::executor::block_on;
 use winreg::{enums::HKEY_CURRENT_USER, RegKey};
 use super::ID;
 
@@ -21,7 +20,6 @@ F: FnMut(String) -> Fut + Send + 'static,
 Fut: Future<Output = ()> + Send + 'static,
 {
     listen(handler);
-
     let hkcu = RegKey::predef(HKEY_CURRENT_USER);
     let base = Path::new("Software").join("Classes").join(scheme);
 
@@ -49,6 +47,7 @@ Fut: Future<Output = ()> + Send + 'static,
     Ok(())
 }
 
+#[allow(unused)]
 pub fn unregister(scheme: &str) -> Result<(), std::io::Error> {
     let hkcu = RegKey::predef(HKEY_CURRENT_USER);
     let base = Path::new("Software").join("Classes").join(scheme);
@@ -63,28 +62,26 @@ where
 F: FnMut(String) -> Fut + Send + 'static ,
 Fut:  Future<Output = ()> + Send  + 'static,
 {
-        let task_to_do = async move {
-            let listener =
-            LocalSocketListener::bind(ID.get().expect("listen() called before prepare()").as_str())
-                .expect("Can't create listener");
+    let task_to_do = async move {
+        let listener =
+        LocalSocketListener::bind(ID.get().expect("listen() called before prepare()").as_str())
+            .expect("Can't create listener");
 
-            for conn in listener.incoming().filter_map(|c| {
-            c.map_err(|error| log::error!("Incoming connection failed: {}", error))
-                .ok()
-            })
-            {
-                let mut conn = BufReader::new(conn);
-                let mut buffer = String::new();
-                if let Err(io_err) = conn.read_line(&mut buffer) {
-                    log::error!("Error reading incoming connection: {}", io_err.to_string());
-                };
-                buffer.pop();
+        for conn in listener.incoming().filter_map(|c| {c.map_err(|error| log::error!("Incoming connection failed: {}", error)).ok()})
+        {
+            let mut conn = BufReader::new(conn);
+            let mut buffer = String::new();
+            if let Err(io_err) = conn.read_line(&mut buffer) {
+                log::error!("Error reading incoming connection: {}", io_err.to_string());
+            };
+            buffer.pop();
+            handler(buffer).await;
+        }
+    };
+    tokio::spawn(async move{
+        task_to_do.await;
+    });
 
-                handler(buffer).await;
-            }
-        };
-
-        std::thread::spawn(move || block_on(task_to_do));
 }
 
 pub fn prepare(identifier: &str) {
