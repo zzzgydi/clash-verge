@@ -19,9 +19,9 @@ use tauri::{api, SystemTray};
 async fn main() -> std::io::Result<()> {
     
     // Deep linking
-    deep_link::prepare("top.gydi.clashverg");
+    deep_link::prepare("app.clashverge");
     
-    let deep_link_register_result = deep_link::register("clashy",| deep_link | async move {
+    let deep_link_register_result = deep_link::register("clash",| deep_link | async move {
         // Convert deep link to something that import_profile can use
         let profile_url_and_name = help::convert_deeplink_to_url_for_import_profile(&deep_link);
         // If deep link is invalid, we pop up a message to user
@@ -35,6 +35,7 @@ async fn main() -> std::io::Result<()> {
         if import_result.is_err(){
             Handle::notice_message("set_config::error",format!("Profile url is invalid | {}", import_result.err().unwrap()));
         }
+        Handle::notice_message("set_config::ok", "Profile added.");
     }).await;
 
     // If we couldn't register, we log it
