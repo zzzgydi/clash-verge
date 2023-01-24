@@ -20,8 +20,8 @@ async fn main() -> std::io::Result<()> {
     
     // Deep linking
     deep_link::prepare("app.clashverge");
-    
-    let deep_link_register_result = deep_link::register("clash",| deep_link | async move {
+    // Define handler
+    let handler = | deep_link | async move {
         // Convert deep link to something that import_profile can use
         let profile_url_and_name = help::convert_deeplink_to_url_for_import_profile(&deep_link);
         // If deep link is invalid, we pop up a message to user
@@ -36,12 +36,19 @@ async fn main() -> std::io::Result<()> {
             Handle::notice_message("set_config::error",format!("Profile url is invalid | {}", import_result.err().unwrap()));
         }
         Handle::notice_message("set_config::ok", "Profile added.");
-    }).await;
-
+    };
+    // Register "clash" scheme
+    let  deep_link_register_result = deep_link::register("clash",handler.clone()).await;
     // If we couldn't register, we log it
     if deep_link_register_result.is_err(){
-        println!("We can't register deep link scheme for program | {}",deep_link_register_result.err().unwrap())
+        println!("We can't register \"clash\" scheme for program | {}",deep_link_register_result.err().unwrap())
     }
+    // Register "clashmeta" scheme
+    // deep_link_register_result = deep_link::register("clashmeta", handler).await;
+    // If we couldn't register, we log it
+    // if deep_link_register_result.is_err(){
+    //     println!("We can't register \"clashmeta\" scheme for program | {}",deep_link_register_result.err().unwrap())
+    // }
 
     // 单例检测
     if server::check_singleton().is_err() {
