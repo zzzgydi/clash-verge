@@ -9,11 +9,47 @@ mod core;
 mod enhance;
 mod feat;
 mod utils;
+mod deep_link;
 
-use crate::utils::{init, resolve, server};
+use crate::utils::{init, resolve, server, help};
+use crate::core::handle::Handle;
 use tauri::{api, SystemTray};
 
-fn main() -> std::io::Result<()> {
+#[tokio::main]
+async fn main() -> std::io::Result<()> {
+    
+    // Deep linking
+    deep_link::prepare("app.clashverge");
+    // Define handler
+    let handler = | deep_link | async move {
+        // Convert deep link to something that import_profile can use
+        let profile_url_and_name = help::convert_deeplink_to_url_for_import_profile(&deep_link);
+        // If deep link is invalid, we pop up a message to user
+        if profile_url_and_name.is_err(){
+            Handle::notice_message("set_config::error", "Profile url is invalid");
+        }
+        
+        // Import profile
+        let import_result = cmds::import_profile(profile_url_and_name.unwrap(), None).await;
+        // If we couldn't import profile& we pop up a message to user
+        if import_result.is_err(){
+            Handle::notice_message("set_config::error",format!("Profile url is invalid | {}", import_result.err().unwrap()));
+        }
+        Handle::notice_message("set_config::ok", "Profile added.");
+    };
+    // Register "clash" scheme
+    let  deep_link_register_result = deep_link::register("clash",handler.clone()).await;
+    // If we couldn't register, we log it
+    if deep_link_register_result.is_err(){
+        println!("We can't register \"clash\" scheme for program | {}",deep_link_register_result.err().unwrap())
+    }
+    // Register "clashmeta" scheme
+    // deep_link_register_result = deep_link::register("clashmeta", handler).await;
+    // If we couldn't register, we log it
+    // if deep_link_register_result.is_err(){
+    //     println!("We can't register \"clashmeta\" scheme for program | {}",deep_link_register_result.err().unwrap())
+    // }
+
     // 单例检测
     if server::check_singleton().is_err() {
         println!("app exists");

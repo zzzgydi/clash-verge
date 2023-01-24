@@ -78,7 +78,7 @@ const ProfilePage = () => {
       // init selected array
       const { selected = [] } = profile;
       const selectedMap = Object.fromEntries(
-h        selected.map((each) => [each.name!, each.now!])
+        selected.map((each) => [each.name!, each.now!])
       );
 
       let hasChange = false;
