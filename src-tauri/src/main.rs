@@ -10,18 +10,29 @@ mod enhance;
 mod feat;
 mod utils;
 mod deep_link;
+use std::sync::{Arc, Mutex};
 
 use crate::utils::{init, resolve, server, help};
 use crate::core::handle::Handle;
-use tauri::{api, SystemTray};
+use tauri::{api, SystemTray, Manager};
+use once_cell::sync::Lazy;
+use std::thread;
+use help::focus_to_main_window_if_needed;
+
+// This is not the best way to do it...
+static mut NEED_WINDOW_BE_FOCUS:Lazy<Arc<Mutex<bool>>> = Lazy::new(|| Arc::new(Mutex::new(false)));
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
-    
+
     // Deep linking
     deep_link::prepare("app.clashverge");
     // Define handler
     let handler = | deep_link | async move {
+        // Set need to be focus to true, it's handled in other thread
+        unsafe{
+            *crate::NEED_WINDOW_BE_FOCUS.lock().unwrap() = true;
+        }
         // Convert deep link to something that import_profile can use
         let profile_url_and_name = help::convert_deeplink_to_url_for_import_profile(&deep_link);
         // If deep link is invalid, we pop up a message to user
@@ -126,6 +137,10 @@ async fn main() -> std::io::Result<()> {
     let app = builder
         .build(tauri::generate_context!())
         .expect("error while running tauri application");
+    
+    // Focus thread
+    let app_handle = app.app_handle();
+    thread::spawn(move ||{focus_to_main_window_if_needed(&app_handle)});
 
     app.run(|app_handle, e| match e {
         tauri::RunEvent::ExitRequested { api, .. } => {
