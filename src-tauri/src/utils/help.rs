@@ -2,10 +2,10 @@ use anyhow::{anyhow, bail, Context, Result};
 use nanoid::nanoid;
 use serde::{de::DeserializeOwned, Serialize};
 use serde_yaml::{Mapping, Value};
-use std::{fs, path::PathBuf, process::Command, str::FromStr};
-use tauri::{AppHandle, Manager};
-use std::thread;
+use std::{fs, path::PathBuf, process::Command, str::FromStr, thread};
+use tauri::{AppHandle};
 use std::time::Duration;
+use crate::utils::resolve;
 
 /// read data from yaml as struct T
 pub fn read_yaml<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
@@ -158,14 +158,12 @@ pub fn focus_to_main_window_if_needed(app_handle:&AppHandle){
     loop{
         unsafe{
             if *crate::NEED_WINDOW_BE_FOCUS.lock().unwrap() == true{
-                if let Some(window) = app_handle.get_window("main"){
-                    let _ = window.show();
-                    let _ = window.set_focus();
-                    *crate::NEED_WINDOW_BE_FOCUS.lock().unwrap() = false;
-                }
+                // Show main window is exist, otherwise create main window and show it
+                resolve::create_window(app_handle);
+                *crate::NEED_WINDOW_BE_FOCUS.lock().unwrap() = false;
+                thread::sleep(Duration::from_millis(600))
             }
         }
-        thread::sleep(Duration::from_millis(700))
     }
 }
 
