@@ -57,7 +57,7 @@ impl CoreManager {
         let config_path = dirs::path_to_str(&config_path)?;
 
         let clash_core = { Config::verge().latest().clash_core.clone() };
-        let clash_core = clash_core.unwrap_or("clash".into());
+        let clash_core = clash_core.unwrap_or("clash-meta".into());
 
         let app_dir = dirs::app_home_dir()?;
         let app_dir = dirs::path_to_str(&app_dir)?;
@@ -135,7 +135,7 @@ impl CoreManager {
         let app_dir = dirs::path_to_str(&app_dir)?;
 
         let clash_core = { Config::verge().latest().clash_core.clone() };
-        let clash_core = clash_core.unwrap_or("clash".into());
+        let clash_core = clash_core.unwrap_or("clash-meta".into());
 
         let config_path = dirs::path_to_str(&config_path)?;
 

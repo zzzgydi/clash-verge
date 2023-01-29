@@ -104,21 +104,22 @@ const ProfilePage = () => {
 
   const onImport = async () => {
     if (!url) return;
-    setUrl("");
+    
     setDisabled(true);
 
     try {
       await importProfile(url);
       Notice.success("Successfully import profile.");
-
+      setUrl("");
       getProfiles().then((newProfiles) => {
         mutate("getProfiles", newProfiles);
-
-        const remoteItem = newProfiles.items?.find((e) => e.type === "remote");
-        if (!newProfiles.current && remoteItem) {
-          const current = remoteItem.uid;
+        if (newProfiles.items && newProfiles.items.length>0){
+          const lastItem = newProfiles.items[newProfiles.items.length-1];
+          const current = lastItem.uid;
           patchProfiles({ current });
           mutateLogs();
+          closeAllConnections();
+          Notice.success("Refresh clash config", 1000);
         }
       });
     } catch (err: any) {

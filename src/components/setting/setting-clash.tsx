@@ -110,7 +110,7 @@ const SettingClash = ({ onError }: Props) => {
         />
       </SettingItem>
 
-      <SettingItem label={t("External")}>
+      {/* <SettingItem label={t("External")}>
         <IconButton
           color="inherit"
           size="small"
@@ -141,7 +141,7 @@ const SettingClash = ({ onError }: Props) => {
         >
           <ArrowForward />
         </IconButton>
-      </SettingItem>
+      </SettingItem> */}
 
       <SettingItem label={t("Clash Core")} extra={<CoreSwitch />}>
         <Typography sx={{ py: "7px", pr: 1 }}>{version}</Typography>

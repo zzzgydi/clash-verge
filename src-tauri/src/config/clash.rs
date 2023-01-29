@@ -26,7 +26,7 @@ impl IClashTemp {
 
         map.insert("mixed-port".into(), 7890.into());
         map.insert("log-level".into(), "info".into());
-        map.insert("allow-lan".into(), false.into());
+        map.insert("allow-lan".into(), true.into());
         map.insert("mode".into(), "rule".into());
         map.insert("external-controller".into(), "127.0.0.1:9090".into());
         map.insert("secret".into(), "".into());

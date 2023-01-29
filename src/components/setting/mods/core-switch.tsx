@@ -19,7 +19,7 @@ export const CoreSwitch = () => {
   const [anchorEl, setAnchorEl] = useState<any>(null);
   const [position, setPosition] = useState({ left: 0, top: 0 });
 
-  const { clash_core = "clash" } = verge ?? {};
+  const { clash_core = "clash-meta" } = verge ?? {};
 
   const onCoreChange = useLockFn(async (core: string) => {
     if (core === clash_core) return;
