@@ -1,12 +1,12 @@
 {
-  "name": "clash-verge",
+  "name": "HiddifyDesktop",
   "version": "1.2.1",
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "tauri dev",
-    "dev:diff": "tauri dev -f verge-dev",
-    "build": "tauri build",
-    "tauri": "tauri",
+    "dev": "cargo tauri dev",
+    "dev:diff": "cargo tauri dev -f verge-dev",
+    "build": "cargo tauri build",
+    "tauri": "cargo tauri",
     "web:dev": "vite",
     "web:build": "tsc && vite build",
     "web:serve": "vite preview",

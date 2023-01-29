@@ -2,7 +2,10 @@ use anyhow::{anyhow, bail, Context, Result};
 use nanoid::nanoid;
 use serde::{de::DeserializeOwned, Serialize};
 use serde_yaml::{Mapping, Value};
-use std::{fs, path::PathBuf, process::Command, str::FromStr};
+use std::{fs, path::PathBuf, process::Command, str::FromStr, thread};
+use tauri::{AppHandle};
+use std::time::Duration;
+use crate::utils::resolve;
 
 /// read data from yaml as struct T
 pub fn read_yaml<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
@@ -105,6 +108,65 @@ pub fn open_file(path: PathBuf) -> Result<()> {
     Ok(())
 }
 
+#[derive(Debug)]
+pub enum ExtractDeeplinkError{
+    InvalidInput
+}
+// pub fn extract_url_and_profile_name_from_deep_link(deep_link:&String) -> Result<(String,String),ExtractDeeplinkError>{
+//     // Sample: clash://install-config?url=https://mysite.com/all.yml&name=profilename
+//     let (url,profile) = {
+//         let pruned = deep_link.split("url=").collect::<Vec<_>>();
+//         if pruned.len() < 2 {
+//             return Err(ExtractDeeplinkError::InvalidInput)
+//         }
+//         let url_and_profile_name = pruned[1].split("&").collect::<Vec<_>>();
+//         if url_and_profile_name.len() < 2{
+//             return Err(ExtractDeeplinkError::InvalidInput)
+//         }
+//         let url = url_and_profile_name[0].to_string();
+//         let profile_name = {
+//             let splitted: Vec<_> = url_and_profile_name[1].split("=").collect();
+//             if splitted.len() < 2 {
+//                 return Err(ExtractDeeplinkError::InvalidInput)
+//             }
+//             splitted[1].to_string()
+//         };
+
+//         (url,profile_name)
+//     };
+
+//     return Ok((url,profile));
+// }
+
+pub fn convert_deeplink_to_url_for_import_profile(deep_link:&String) -> Result<String,ExtractDeeplinkError>{
+    // Sample: clash://install-config?url=https://mysite.com/all.yml&name=profilename
+    let import_profile_url_raw = {
+        let url_part:Vec<_> = deep_link.split("url=").collect();
+        if url_part.len() < 2{
+            return Err(ExtractDeeplinkError::InvalidInput)
+        }
+        url_part
+    };
+
+    // Convert url to something that import_profile functin can use
+    let import_profile_url = import_profile_url_raw[1].replacen('&', "?", 1);
+    Ok(import_profile_url)
+}
+
+// Focus to the main window, and back the NEED_WINDOW_BE_FOCUS to false, and wait for NEED_WINDOW_BE_FOCUS be true to do its job
+pub fn focus_to_main_window_if_needed(app_handle:&AppHandle){
+    loop{
+        unsafe{
+            if *crate::NEED_WINDOW_BE_FOCUS.lock().unwrap() == true{
+                // Show main window is exist, otherwise create main window and show it
+                resolve::create_window(app_handle);
+                *crate::NEED_WINDOW_BE_FOCUS.lock().unwrap() = false;
+                thread::sleep(Duration::from_millis(600))
+            }
+        }
+    }
+}
+
 #[macro_export]
 macro_rules! error {
     ($result: expr) => {
@@ -168,4 +230,21 @@ fn test_parse_value() {
     assert_eq!(parse_str::<usize>(test_1, "upload1="), None);
     assert_eq!(parse_str::<usize>(test_1, "expire1="), None);
     assert_eq!(parse_str::<usize>(test_2, "attachment="), None);
+}
+//#[test]
+// fn test_extract_url_and_profile_name_from_deep_link(){
+//     let s = "clash://install-config?url=https://mysite.com/all.yml&name=profilename";
+//     let (url,prof_name) = extract_url_and_profile_name_from_deep_link(&s.to_string()).unwrap();
+//     assert_eq!(url,"https://mysite.com/all.yml");
+//     assert_eq!(prof_name,"profilename");
+// }
+#[test]
+fn test_convert_deeplink_to_url_for_import_profile(){
+    let s = "clashy://install-config?url=https://antyfilter.aeycia.cl/80467cf865c2ef1af111716ddf30dd29/80467cf865c2ef1af111716ddf30dd29/clash/all.yml&name=all_antyfilter.aeycia.cl";
+    let res = convert_deeplink_to_url_for_import_profile(&s.to_string());
+    if res.is_err(){
+        println!("Test failed: {:?}",res.err().unwrap())
+    }else{
+        panic!("Test successfully completed")
+    }
 }
