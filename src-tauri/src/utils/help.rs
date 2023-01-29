@@ -2,7 +2,10 @@ use anyhow::{anyhow, bail, Context, Result};
 use nanoid::nanoid;
 use serde::{de::DeserializeOwned, Serialize};
 use serde_yaml::{Mapping, Value};
-use std::{fs, path::PathBuf, process::Command, str::FromStr};
+use std::{fs, path::PathBuf, process::Command, str::FromStr, thread};
+use tauri::{AppHandle};
+use std::time::Duration;
+use crate::utils::resolve;
 
 /// read data from yaml as struct T
 pub fn read_yaml<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
@@ -149,6 +152,21 @@ pub fn convert_deeplink_to_url_for_import_profile(deep_link:&String) -> Result<S
     let import_profile_url = import_profile_url_raw[1].replacen('&', "?", 1);
     Ok(import_profile_url)
 }
+
+// Focus to the main window, and back the NEED_WINDOW_BE_FOCUS to false, and wait for NEED_WINDOW_BE_FOCUS be true to do its job
+pub fn focus_to_main_window_if_needed(app_handle:&AppHandle){
+    loop{
+        unsafe{
+            if *crate::NEED_WINDOW_BE_FOCUS.lock().unwrap() == true{
+                // Show main window is exist, otherwise create main window and show it
+                resolve::create_window(app_handle);
+                *crate::NEED_WINDOW_BE_FOCUS.lock().unwrap() = false;
+                thread::sleep(Duration::from_millis(600))
+            }
+        }
+    }
+}
+
 #[macro_export]
 macro_rules! error {
     ($result: expr) => {
