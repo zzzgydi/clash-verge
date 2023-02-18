@@ -38,6 +38,7 @@ async fn main() -> std::io::Result<()> {
         // If deep link is invalid, we pop up a message to user
         if profile_url_and_name.is_err(){
             Handle::notice_message("set_config::error", "Profile url is invalid");
+            return
         }
         
         // Import profile
@@ -45,6 +46,7 @@ async fn main() -> std::io::Result<()> {
         // If we couldn't import profile& we pop up a message to user
         if import_result.is_err(){
             Handle::notice_message("set_config::error",format!("Profile url is invalid | {}", import_result.err().unwrap()));
+            return
         }
         Handle::notice_message("set_config::ok", "Profile added.");
     };
