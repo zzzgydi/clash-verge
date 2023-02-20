@@ -78,7 +78,7 @@ const SettingClash = ({ onError }: Props) => {
         </GuardState>
       </SettingItem>
 
-      <SettingItem label={t("Log Level")}>
+      {/* <SettingItem label={t("Log Level")}>
         <GuardState
           // clash premium 2022.08.26 值为warn
           value={logLevel === "warn" ? "warning" : logLevel ?? "info"}
@@ -95,7 +95,7 @@ const SettingClash = ({ onError }: Props) => {
             <MenuItem value="silent">Silent</MenuItem>
           </Select>
         </GuardState>
-      </SettingItem>
+      </SettingItem> */}
 
       <SettingItem label={t("Mixed Port")}>
         <TextField

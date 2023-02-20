@@ -7,6 +7,11 @@ import RulesPage from "./rules";
 
 export const routers = [
   {
+    label: "Label-Settings",
+    link: "/settings",
+    ele: SettingsPage,
+  },
+  {
     label: "Label-Proxies",
     link: "/",
     ele: ProxiesPage,
@@ -30,10 +35,5 @@ export const routers = [
     label: "Label-Logs",
     link: "/logs",
     ele: LogsPage,
-  },
-  {
-    label: "Label-Settings",
-    link: "/settings",
-    ele: SettingsPage,
   },
 ];
