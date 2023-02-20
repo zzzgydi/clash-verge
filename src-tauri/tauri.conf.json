@@ -26,8 +26,8 @@
         "icons/icon.ico"
       ],
       "resources": ["resources"],
-      "externalBin": ["sidecar/clash-meta", "sidecar/clash"],
-      "copyright": "© 2022 zzzgydi All Rights Reserved",
+      "externalBin": ["sidecar/clash", "sidecar/clash-meta"],
+      "copyright": "© 2022 Hiddify All Rights Reserved (a fork of clash-verge)",
       "category": "DeveloperTool",
       "shortDescription": "A Clash GUI based on tauri.",
       "longDescription": "A Clash GUI based on tauri.",
@@ -46,15 +46,15 @@
         "digestAlgorithm": "sha256",
         "timestampUrl": "",
         "wix": {
-          "language": ["zh-CN", "en-US"]
+          "language": ["en-US"]
         }
       }
     },
     "updater": {
       "active": false,
       "endpoints": [
-        "https://github.com/zzzgydi/clash-verge/releases/download/updater/update.json",
-        "https://hub.fastgit.xyz/zzzgydi/clash-verge/releases/download/updater/update-proxy.json"
+        "https://github.com/hiddify/HiddifyDesktop/releases/download/updater/update.json",
+        "https://hub.fastgit.xyz/hiddify/HiddifyDesktop/releases/download/updater/update-proxy.json"
       ],
       "dialog": false,
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDExNUFBNTBBN0FDNEFBRTUKUldUbHFzUjZDcVZhRVRJM25NS3NkSFlFVElxUkNZMzZ6bHUwRVJjb2F3alJXVzRaeDdSaTA2YWYK"
