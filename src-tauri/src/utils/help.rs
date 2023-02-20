@@ -161,9 +161,9 @@ pub fn focus_to_main_window_if_needed(app_handle:&AppHandle){
                 // Show main window is exist, otherwise create main window and show it
                 resolve::create_window(app_handle);
                 *crate::NEED_WINDOW_BE_FOCUS.lock().unwrap() = false;
-                thread::sleep(Duration::from_millis(600))
             }
         }
+        thread::sleep(Duration::from_millis(1400));
     }
 }
 
