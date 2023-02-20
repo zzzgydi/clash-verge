@@ -1,7 +1,7 @@
 {
   "package": {
     "productName": "HiddifyDesktop",
-    "version": "1.2.1"
+    "version": "1.2.3"
   },
   "build": {
     "distDir": "../dist",
@@ -32,7 +32,7 @@
       "shortDescription": "A Clash GUI based on tauri.",
       "longDescription": "A Clash GUI based on tauri.",
       "deb": {
-        "depends": []
+        "depends": ["openssl"]
       },
       "macOS": {
         "frameworks": [],

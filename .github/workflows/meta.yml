@@ -1,11 +1,10 @@
-name: Alpha CI
+name: Meta CI
 
 on:
   workflow_dispatch:
-    inputs:
-      debug:
-        type: boolean
-        default: false
+  push:
+    tags:
+      - v**
 
 env:
   CARGO_INCREMENTAL: 0
@@ -68,7 +67,7 @@ jobs:
         uses: mknejp/delete-release-assets@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: alpha
+          tag: meta
           fail-if-no-assets: false
           fail-if-no-release: false
           assets: |
@@ -87,11 +86,10 @@ jobs:
           TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
         with:
-          tagName: alpha
-          releaseName: "Clash Verge Alpha"
-          releaseBody: "Alpha Version (include debug)"
+          tagName: meta
+          releaseName: "Clash Verge Meta"
+          releaseBody: ""
           releaseDraft: false
-          includeDebug: ${{ github.event.inputs.debug }}
           prerelease: true
           args: -f default-meta
 

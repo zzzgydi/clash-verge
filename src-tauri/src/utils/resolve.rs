@@ -94,12 +94,17 @@ pub fn create_window(app_handle: &AppHandle) {
     }
 
     #[cfg(target_os = "macos")]
-    crate::log_err!(builder.decorations(true).inner_size(800.0, 642.0).build());
+    crate::log_err!(builder
+        .decorations(true)
+        .inner_size(800.0, 642.0)
+        .hidden_title(true)
+        .title_bar_style(tauri::TitleBarStyle::Overlay)
+        .build());
 
     #[cfg(target_os = "linux")]
     crate::log_err!(builder
-        .decorations(false)
-        .transparent(true)
-        .inner_size(800.0, 636.0)
+        .decorations(true)
+        .transparent(false)
+        .inner_size(800.0, 642.0)
         .build());
 }

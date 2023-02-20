@@ -17,7 +17,7 @@ const SIDECAR_HOST = execSync("rustc -vV")
 /* ======= clash ======= */
 const CLASH_URL_PREFIX =
   "https://github.com/Dreamacro/clash/releases/download/premium/";
-const CLASH_LATEST_DATE = "2022.11.25";
+const CLASH_LATEST_DATE = "2023.02.16";
 
 const CLASH_MAP = {
   "win32-x64": "clash-windows-amd64",
@@ -29,7 +29,7 @@ const CLASH_MAP = {
 
 /* ======= clash meta ======= */
 const META_URL_PREFIX = `https://github.com/MetaCubeX/Clash.Meta/releases/download/`;
-const META_VERSION = "v1.13.2";
+const META_VERSION = "v1.14.1";
 
 const META_MAP = {
   "win32-x64": "Clash.Meta-windows-amd64-compatible",
@@ -45,10 +45,10 @@ const META_MAP = {
 
 const { platform, arch } = process;
 if (!CLASH_MAP[`${platform}-${arch}`]) {
-  throw new Error(`clash unsupport platform "${platform}-${arch}"`);
+  throw new Error(`clash unsupported platform "${platform}-${arch}"`);
 }
 if (!META_MAP[`${platform}-${arch}`]) {
-  throw new Error(`clash meta unsupport platform "${platform}-${arch}"`);
+  throw new Error(`clash meta unsupported platform "${platform}-${arch}"`);
 }
 
 function clash() {

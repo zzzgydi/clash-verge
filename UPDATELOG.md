@@ -1,3 +1,34 @@
+## v1.2.3
+
+### Features
+
+- update clash
+- adjust macOS window style
+- profile supports UTF8 with BOM
+
+### Bug Fixes
+
+- fix selected proxy
+- fix error log
+
+---
+
+## v1.2.2
+
+### Features
+
+- update clash meta
+- recover clash core after panic
+- use system window decorations(Linux)
+
+### Bug Fixes
+
+- flush system proxy settings(Windows)
+- fix parse log panic
+- fix ui bug
+
+---
+
 ## v1.2.1
 
 ### Features

@@ -1,34 +1,34 @@
 use serde_yaml::{Mapping, Value};
 
 pub const HANDLE_FIELDS: [&str; 9] = [
+    "mode",
     "port",
     "socks-port",
     "mixed-port",
-    "mode",
-    "ipv6",
-    "log-level",
     "allow-lan",
-    "external-controller",
+    "log-level",
+    "ipv6",
     "secret",
+    "external-controller",
 ];
 
 pub const DEFAULT_FIELDS: [&str; 5] = [
     "proxies",
     "proxy-groups",
-    "rules",
     "proxy-providers",
+    "rules",
     "rule-providers",
 ];
 
-pub const OTHERS_FIELDS: [&str; 23] = [
-    "tun",
+pub const OTHERS_FIELDS: [&str; 29] = [
     "dns",
+    "tun",
     "ebpf",
     "hosts",
     "script",
     "profile",
     "payload",
-    "tunnels", // clash dev
+    "tunnels",
     "auto-redir",
     "experimental",
     "interface-name",
@@ -39,11 +39,17 @@ pub const OTHERS_FIELDS: [&str; 23] = [
     "external-ui",
     "bind-address",
     "authentication",
-    "sniffer",        // meta
-    "sub-rules",      // meta
-    "geodata-mode",   // meta
-    "tcp-concurrent", // meta
-    "enable-process", // meta
+    "tls",                       // meta
+    "sniffer",                   // meta
+    "geox-url",                  // meta
+    "listeners",                 // meta
+    "sub-rules",                 // meta
+    "geodata-mode",              // meta
+    "tcp-concurrent",            // meta
+    "enable-process",            // meta
+    "find-process-mode",         // meta
+    "external-controller-tls",   // meta
+    "global-client-fingerprint", // meta
 ];
 
 pub fn use_clash_fields() -> Vec<String> {
@@ -66,7 +72,11 @@ pub fn use_valid_fields(mut valid: Vec<String>) -> Vec<String> {
         .collect()
 }
 
-pub fn use_filter(config: Mapping, filter: &Vec<String>) -> Mapping {
+pub fn use_filter(config: Mapping, filter: &Vec<String>, enable: bool) -> Mapping {
+    if !enable {
+        return config;
+    }
+
     let mut ret = Mapping::new();
 
     for (key, value) in config.into_iter() {
