@@ -6,6 +6,7 @@ use std::{
 };
 
 use dirs_next::data_dir;
+use futures::Future;
 
 use super::ID;
 
@@ -67,6 +68,7 @@ Fut: Future<Output = ()> + Send + 'static,
     Ok(())
 }
 
+#[allow(unused)]
 pub fn unregister(_scheme: &str) -> Result<()> {
     let mut target =
         data_dir().ok_or_else(|| Error::new(ErrorKind::NotFound, "data directory not found."))?;
@@ -88,8 +90,12 @@ pub fn unregister(_scheme: &str) -> Result<()> {
     Ok(())
 }
 
-pub fn listen<F: FnMut(String) + Send + 'static>(mut handler: F) {
-    std::thread::spawn(move || {
+pub fn listen<F,Fut>(mut handler: F)
+where
+F: FnMut(String) -> Fut + Send + 'static ,
+Fut: Future<Output = ()> + Send  + 'static,
+{
+    let task_to_do = async move{
         let addr = format!(
             "/tmp/{}-deep-link.sock",
             ID.get().expect("listen() called before prepare()")
@@ -105,7 +111,7 @@ pub fn listen<F: FnMut(String) + Send + 'static>(mut handler: F) {
                         log::error!("Error reading incoming connection: {}", io_err.to_string());
                     };
 
-                    handler(dbg!(buffer));
+                    handler(dbg!(buffer)).await;
                 }
                 Err(err) => {
                     log::error!("Incoming connection failed: {}", err);
@@ -113,6 +119,10 @@ pub fn listen<F: FnMut(String) + Send + 'static>(mut handler: F) {
                 }
             }
         }
+    };
+
+    tokio::spawn(async move {
+        task_to_do.await
     });
 }
 
