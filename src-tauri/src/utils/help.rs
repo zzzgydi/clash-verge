@@ -5,7 +5,7 @@ use serde_yaml::{Mapping, Value};
 use std::{fs, path::PathBuf, process::Command, str::FromStr, thread};
 use tauri::{AppHandle};
 use std::time::Duration;
-use crate::utils::resolve;
+use crate::{utils::resolve, cmds};
 
 /// read data from yaml as struct T
 pub fn read_yaml<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
@@ -164,6 +164,30 @@ pub fn focus_to_main_window_if_needed(app_handle:&AppHandle){
             }
         }
         thread::sleep(Duration::from_millis(1400));
+    }
+}
+
+pub async fn select_last_profile() -> Result<(),()>{
+    match cmds::get_profiles(){
+        Ok(mut prf_config) => {
+            match prf_config.get_items(){
+                Some(profiles) => {
+                    match profiles.last(){
+                        Some(last_prf) => {
+                            prf_config.current = last_prf.uid.clone();
+
+                            if let Err(_) = cmds::patch_profiles_config(prf_config).await{
+                                return Err(())
+                            }
+                            return Ok(())
+                        },
+                        None => return Err(())
+                    }
+                },
+                None => return Err(())
+            }
+        },
+        Err(_) => return Err(())
     }
 }
 
