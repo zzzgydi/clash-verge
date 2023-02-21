@@ -8,12 +8,12 @@ import RulesPage from "./rules";
 export const routers = [
   {
     label: "Label-Settings",
-    link: "/settings",
+    link: "/",
     ele: SettingsPage,
   },
   {
     label: "Label-Proxies",
-    link: "/",
+    link: "/proxy",
     ele: ProxiesPage,
   },
   {
