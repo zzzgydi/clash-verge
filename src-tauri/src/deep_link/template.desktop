@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name={name}
+Exec={exec} %u
+Terminal=false
+MimeType={mime_types}
+NoDisplay=true
