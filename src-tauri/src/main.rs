@@ -48,6 +48,11 @@ async fn main() -> std::io::Result<()> {
             Handle::notice_message("set_config::error",format!("Profile url is invalid | {}", import_result.err().unwrap()));
             return
         }
+
+        // Select last profile (added profile)
+        if let Err(_) = help::select_last_profile().await{
+            Handle::notice_message("set_config::error", "Couldn't select added profile!")
+        }
         Handle::notice_message("set_config::ok", "Profile added.");
     };
     // Register "clash" scheme
@@ -56,12 +61,7 @@ async fn main() -> std::io::Result<()> {
     if deep_link_register_result.is_err(){
         println!("We can't register \"clash\" scheme for program | {}",deep_link_register_result.err().unwrap())
     }
-    // Register "clashmeta" scheme
-    // deep_link_register_result = deep_link::register("clashmeta", handler).await;
-    // If we couldn't register, we log it
-    // if deep_link_register_result.is_err(){
-    //     println!("We can't register \"clashmeta\" scheme for program | {}",deep_link_register_result.err().unwrap())
-    // }
+
 
     // 单例检测
     if server::check_singleton().is_err() {
