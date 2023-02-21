@@ -44,19 +44,20 @@ const ProfilePage = () => {
 
   // distinguish type
   const { regularItems, enhanceItems } = useMemo(() => {
-    const items = (profiles.items || []).reverse();
-    const chain = (profiles.chain || []).reverse();
+    const items = (profiles.items || []);
+    const chain = profiles.chain || [];
 
     const type1 = ["local", "remote"];
     const type2 = ["merge", "script"];
 
     const regularItems = items.filter((i) => type1.includes(i.type!));
+    regularItems.reverse();
     const restItems = items.filter((i) => type2.includes(i.type!));
     const restMap = Object.fromEntries(restItems.map((i) => [i.uid, i]));
     const enhanceItems = chain
       .map((i) => restMap[i]!)
       .concat(restItems.filter((i) => !chain.includes(i.uid)));
-
+    enhanceItems.reverse();
     return { regularItems, enhanceItems };
   }, [profiles]);
 
