@@ -15,11 +15,10 @@ const SettingPage = () => {
   return (
     <BasePage title={t("Settings")}>
       <Paper sx={{ borderRadius: 1, boxShadow: 2, mb: 3 }}>
-        <SettingClash onError={onError} />
-      </Paper>
-
-      <Paper sx={{ borderRadius: 1, boxShadow: 2, mb: 3 }}>
         <SettingSystem onError={onError} />
+      </Paper>
+      <Paper sx={{ borderRadius: 1, boxShadow: 2, mb: 3 }}>
+        <SettingClash onError={onError} />
       </Paper>
 
       <Paper sx={{ borderRadius: 1, boxShadow: 2 }}>
