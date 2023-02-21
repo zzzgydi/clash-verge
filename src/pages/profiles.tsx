@@ -44,8 +44,8 @@ const ProfilePage = () => {
 
   // distinguish type
   const { regularItems, enhanceItems } = useMemo(() => {
-    const items = (profiles.items || []);//.reverse()
-    const chain = profiles.chain || [];
+    const items = (profiles.items || []).reverse();
+    const chain = (profiles.chain || []).reverse();
 
     const type1 = ["local", "remote"];
     const type2 = ["merge", "script"];
