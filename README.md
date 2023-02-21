@@ -9,8 +9,16 @@
 A <a href="https://github.com/MetaCubeX/Clash.Meta">Clash Meta</a> GUI based on <a href="https://github.com/tauri-apps/tauri">tauri</a>.
 </h3>
 
-## Features
+## Why HiddifyDesktop?
+- It supports Vless and custom browser fingerprinting (simulate Chrome fingerprint for example)
+- Optimized for beginners
+- Support deep linking in windows (You can click on clash links and it will import the config)
+- Auto select the profile after download
+- And more is comming :-)
 
+## Features
+- Supports Trojan, Vless, Vmess, Shadowsocks, v2ray, SSR, ShadowTLS, tuic, ....
+- Rule based proxy. So you can easily ignore not blocked sites :)
 - Full `clash` config supported, Partial `clash premium` config supported.
 - Profiles management and enhancement (by yaml and Javascript). [Doc](https://github.com/zzzgydi/clash-verge/wiki/%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97)
 - Simple UI and supports custom theme color.
