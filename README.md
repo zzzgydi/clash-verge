@@ -1,12 +1,12 @@
 <h1 align="center">
   <img src="./src/assets/image/logo.png" alt="Clash" width="128" />
   <br>
-  Clash Verge
+  Hiddify Desktop
   <br>
 </h1>
 
 <h3 align="center">
-A <a href="https://github.com/Dreamacro/clash">Clash</a> GUI based on <a href="https://github.com/tauri-apps/tauri">tauri</a>.
+A <a href="https://github.com/MetaCubeX/Clash.Meta">Clash Meta</a> GUI based on <a href="https://github.com/tauri-apps/tauri">tauri</a>.
 </h3>
 
 ## Features
@@ -19,7 +19,7 @@ A <a href="https://github.com/Dreamacro/clash">Clash</a> GUI based on <a href="h
 
 ## Install
 
-Download from [release](https://github.com/zzzgydi/clash-verge/releases). Supports Windows x64, Linux x86_64 and macOS 11+
+Download from [release](https://github.com/hiddify/HiddifyDesktop/releases). Supports Windows x64, Linux x86_64 and macOS 11+
 
 Or you can build it yourself. Supports Windows, Linux and macOS 10.15+
 
@@ -87,8 +87,9 @@ Issue and PR welcome!
 
 ## Acknowledgement
 
-Clash Verge was based on or inspired by these projects and so on:
+Hiddify Desktop was based on or inspired by these projects and so on:
 
+- [clash-verge](https://github.com/zzzgydi/clash-verge): directly forked
 - [tauri-apps/tauri](https://github.com/tauri-apps/tauri): Build smaller, faster, and more secure desktop applications with a web frontend.
 - [Dreamacro/clash](https://github.com/Dreamacro/clash): A rule-based tunnel in Go.
 - [MetaCubeX/Clash.Meta](https://github.com/MetaCubeX/Clash.Meta): A rule-based tunnel in Go.
