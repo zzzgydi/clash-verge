@@ -25,8 +25,9 @@ static mut NEED_WINDOW_BE_FOCUS:Lazy<Arc<Mutex<bool>>> = Lazy::new(|| Arc::new(M
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
 
-   if std::env::consts::OS == "windows" || std::env::consts::OS == "linux"{
-       // Deep linking
+    #[cfg(not(target_os = "macos"))]
+    {
+        // Deep linking
        deep_link::prepare("app.HiddifyDesktop");
        // Define deep link handler
        let handler = | deep_link | async move {
@@ -62,8 +63,7 @@ async fn main() -> std::io::Result<()> {
        if deep_link_register_result.is_err(){
            println!("We can't register \"clash\" scheme for program | {}",deep_link_register_result.err().unwrap())
        }
-   }
-
+    }
 
     // 单例检测
     if server::check_singleton().is_err() {
