@@ -103,6 +103,7 @@ Hiddify Desktop was based on or inspired by these projects and so on:
 - [MetaCubeX/Clash.Meta](https://github.com/MetaCubeX/Clash.Meta): A rule-based tunnel in Go.
 - [Fndroid/clash_for_windows_pkg](https://github.com/Fndroid/clash_for_windows_pkg): A Windows/macOS GUI based on Clash.
 - [vitejs/vite](https://github.com/vitejs/vite): Next generation frontend tooling. It's fast!
+- [Tauri Plugin deep-link](https://github.com/FabianLars/tauri-plugin-deep-link): Implements Deep-link(URI-Scheme) support in Tauri
 
 ## License
 
