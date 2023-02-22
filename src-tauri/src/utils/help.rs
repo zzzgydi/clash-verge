@@ -149,7 +149,7 @@ pub fn convert_deeplink_to_url_for_import_profile(deep_link:&String) -> Result<S
     };
 
     // Convert url to something that import_profile functin can use
-    let import_profile_url = import_profile_url_raw[1].replacen('yml&', "yml?", 1);
+    let import_profile_url = import_profile_url_raw[1].replace(".yml&", ".yml?");
     Ok(import_profile_url)
 }
 
