@@ -231,7 +231,7 @@ impl PrfItem {
         }
 
         let version = unsafe { dirs::APP_VERSION };
-        let version = format!("clash-verge/{version}");
+        let version = format!("hiddify-desktop/{version}");
         builder = builder.user_agent(user_agent.unwrap_or(version));
 
         let resp = builder.build()?.get(url).send().await?;
