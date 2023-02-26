@@ -16,6 +16,7 @@ export const DEFAULT_FIELDS = [
   "proxy-providers",
   "rules",
   "rule-providers",
+  "global-client-fingerprint", // meta
 ] as const;
 
 export const OTHERS_FIELDS = [
@@ -47,5 +48,4 @@ export const OTHERS_FIELDS = [
   "enable-process", // meta
   "find-process-mode", // meta
   "external-controller-tls", // meta
-  "global-client-fingerprint", // meta
 ] as const;
