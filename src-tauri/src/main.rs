@@ -31,10 +31,9 @@ async fn main() -> std::io::Result<()> {
        deep_link::prepare("app.HiddifyDesktop");
        // Define deep link handler
        let handler = | deep_link | async move {
-           // Set need to be focus to true, it's handled in other thread
-           unsafe{
-               *crate::NEED_WINDOW_BE_FOCUS.lock().unwrap() = true;
-           }
+           // Set need to be focus to true, it's handled in another thread
+           help::set_focus();
+           
            // Convert deep link to something that import_profile can use
            let profile_url_and_name = help::convert_deeplink_to_url_for_import_profile(&deep_link);
            // If deep link is invalid, we pop up a message to user

@@ -190,6 +190,44 @@ pub async fn select_last_profile() -> Result<(),()>{
         Err(_) => return Err(())
     }
 }
+pub fn user_has_admin_right() -> Result<bool,String>{
+    #[cfg(target_os = "windows")]
+    // Check user is in administrators group
+    {
+        // Get user information
+        let cmd_output = {
+           match Command::new("net").args(["user","\"%USERNAME%\""]).output(){
+            Ok(v) => v,
+            Err(e) => return Err(String::from(e.to_string()))
+           }
+        };
+
+        // Get command output as String
+        let stdout_str = String::from_utf8(cmd_output.stdout);
+        if stdout_str.is_err(){
+            return Err("Error occurred during convert cmd output to string".to_string())
+        }
+        if stdout_str.unwrap().contains("Administrators"){
+           return Ok(true);
+        }else{
+           return Ok(false);
+        }
+    }
+    #[cfg(target_os = "linux")]
+    {
+        if users::get_effective_uid() == 0{
+            Ok(true)
+        }else{
+            Ok(false)
+        }
+    }
+}
+
+pub fn set_focus(){
+    unsafe{
+        *crate::NEED_WINDOW_BE_FOCUS.lock().unwrap() = true;
+    }
+}
 
 #[macro_export]
 macro_rules! error {
