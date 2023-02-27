@@ -4,6 +4,7 @@ use tauri::{
     api, AppHandle, CustomMenuItem, Manager, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem,
     SystemTraySubmenu,
 };
+use crate::help;
 
 pub struct Tray {}
 
@@ -130,10 +131,7 @@ impl Tray {
                 "restart_clash" => feat::restart_clash_core(),
                 "restart_app" => api::process::restart(&app_handle.env()),
                 "quit" => {
-                    resolve::resolve_reset();
-                    api::process::kill_children();
-                    app_handle.exit(0);
-                    std::process::exit(0);
+                    help::kill_program(Some(app_handle));
                 }
                 _ => {}
             },
