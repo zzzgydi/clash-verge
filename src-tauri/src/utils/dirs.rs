@@ -6,9 +6,9 @@ use tauri::{
 };
 
 #[cfg(not(feature = "verge-dev"))]
-static APP_DIR: &str = "clash-verge";
+static APP_DIR: &str = "hiddify-desktop";
 #[cfg(feature = "verge-dev")]
-static APP_DIR: &str = "clash-verge-dev";
+static APP_DIR: &str = "hiddify-desktop-dev";
 
 static CLASH_CONFIG: &str = "config.yaml";
 static VERGE_CONFIG: &str = "verge.yaml";
@@ -131,7 +131,7 @@ pub fn service_path() -> Result<PathBuf> {
         let res_dir = RESOURCE_DIR
             .clone()
             .ok_or(anyhow::anyhow!("failed to get the resource dir"))?;
-        Ok(res_dir.join("clash-verge-service.exe"))
+        Ok(res_dir.join("hiddify-desktop-service.exe"))
     }
 }
 

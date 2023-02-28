@@ -12,15 +12,16 @@ pub const HANDLE_FIELDS: [&str; 9] = [
     "external-controller",
 ];
 
-pub const DEFAULT_FIELDS: [&str; 5] = [
+pub const DEFAULT_FIELDS: [&str; 6] = [
     "proxies",
     "proxy-groups",
     "proxy-providers",
     "rules",
     "rule-providers",
+    "global-client-fingerprint", // meta
 ];
 
-pub const OTHERS_FIELDS: [&str; 29] = [
+pub const OTHERS_FIELDS: [&str; 28] = [
     "dns",
     "tun",
     "ebpf",
@@ -49,7 +50,7 @@ pub const OTHERS_FIELDS: [&str; 29] = [
     "enable-process",            // meta
     "find-process-mode",         // meta
     "external-controller-tls",   // meta
-    "global-client-fingerprint", // meta
+    
 ];
 
 pub fn use_clash_fields() -> Vec<String> {

@@ -549,7 +549,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "clash-verge"
+name = "hiddify-desktop"
 version = "0.1.0"
 dependencies = [
  "anyhow",

@@ -222,12 +222,12 @@ async function downloadFile(url, path) {
  * main
  */
 const SERVICE_URL =
-  "https://github.com/zzzgydi/clash-verge-service/releases/download/latest";
+  "https://github.com/hiddify/hiddify-desktop-service/releases/download/latest";
 
 const resolveService = () =>
   resolveResource({
-    file: "clash-verge-service.exe",
-    downloadURL: `${SERVICE_URL}/clash-verge-service.exe`,
+    file: "hiddify-desktop-service.exe",
+    downloadURL: `${SERVICE_URL}/hiddify-desktop-service.exe`,
   });
 const resolveInstall = () =>
   resolveResource({

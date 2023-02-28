@@ -65,7 +65,7 @@ impl IProfiles {
         help::save_yaml(
             &dirs::profiles_path()?,
             self,
-            Some("# Profiles Config for Clash Verge"),
+            Some("# Profiles Config for Hiddify Desktop"),
         )
     }
 

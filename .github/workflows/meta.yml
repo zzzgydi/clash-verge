@@ -2,9 +2,9 @@ name: Meta CI
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - v**
+  # push:
+  #   tags:
+  #     - v**
 
 env:
   CARGO_INCREMENTAL: 0
@@ -87,7 +87,7 @@ jobs:
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
         with:
           tagName: meta
-          releaseName: "Clash Verge Meta"
+          releaseName: "Hiddify Desktop Meta"
           releaseBody: ""
           releaseDraft: false
           prerelease: true
