@@ -1,5 +1,5 @@
 {
-  "Home SubTitle": "اقدامات سریع",
+  "Quick Actions": "اقدامات سریع",
   "Please run in admin mode for proxy whole system": "لطفا برنامه را با دسترسی ادمین اجرا کنید تا کل سیستم را از پروکسی عبور دهد.",
   "Hiddify, For a free internet.": "هیدیفای، برای یه اینترنت آزاد",
   "Enable Proxy": "فعال کردن فیلترشکن",
@@ -82,7 +82,7 @@
   "Theme Setting": "تنظیمات قالب",
   "Hotkey Setting": "تنظیم کلید میانبر",
   "Traffic Graph": "نمودار ترافیک",
-  "Language": "Language زبان 语言",
+  "Language": "زبان Language 语言",
   "Open App Dir": "باز کردن پوشه برنامه",
   "Open Core Dir": "باز کردن پوشه هسته",
   "Open Logs Dir": "باز کردن پوشه لاگ",
