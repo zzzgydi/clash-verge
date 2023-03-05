@@ -69,7 +69,7 @@ const Home = ({ onError }: Props) => {
     <SettingList title={t("Quick Actions")}>
       
 
-      <SettingItem label={t("Enable")}>
+      <SettingItem label={t("Enable Proxy")}>
         <GuardState
           value={enable_tun_mode ?? enable_system_proxy ?? false}
           valueProps="checked"
