@@ -3,7 +3,7 @@ use nanoid::nanoid;
 use serde::{de::DeserializeOwned, Serialize};
 use serde_yaml::{Mapping, Value};
 use std::{fs, path::PathBuf, process::Command, str::FromStr, thread};
-use tauri::{AppHandle};
+use tauri::{AppHandle, api};
 use std::time::Duration;
 use crate::{utils::resolve, cmds};
 
@@ -190,7 +190,62 @@ pub async fn select_last_profile() -> Result<(),()>{
         Err(_) => return Err(())
     }
 }
+pub fn user_has_admin_right() -> Result<bool,String>{
+    #[cfg(target_os = "windows")]
+    // Check user is in administrators group
+    {
+        let username = std::env::var("username");
+        if username.is_err(){
+            return Err("Error occurred during get username vairable from windows enviroment".to_string())
+        }
+        // Get user information
+        let cmd_output = {
+           match Command::new("net").args(["user",username.unwrap().as_str()]).output(){
+            Ok(v) => v,
+            Err(e) => return Err(String::from(e.to_string()))
+           }
+        };
 
+        // Get command output as String
+        let stdout_str = String::from_utf8(cmd_output.stdout);
+        if stdout_str.is_err(){
+            return Err("Error occurred during convert cmd output to string".to_string())
+        }
+        if stdout_str.unwrap().contains("Administrators"){
+           return Ok(true);
+        }else{
+           return Ok(false);
+        }
+    }
+    #[cfg(target_os = "linux")]
+    {
+        let user_id = std::env::var("UID");
+        if user_id.is_err(){
+            return Err("Error occurred during get UID variable from linux enviroment".to_string())
+        }
+        if user_id.unwrap() == 0{
+            Ok(true)
+        }else{
+            Ok(false)
+        }
+    }
+}
+
+pub fn set_focus(){
+    unsafe{
+        *crate::NEED_WINDOW_BE_FOCUS.lock().unwrap() = true;
+    }
+}
+
+// Kills program and its children
+pub fn kill_program(app_handle:Option<&AppHandle>){
+    resolve::resolve_reset();
+    api::process::kill_children();
+    if app_handle.is_some(){
+        app_handle.unwrap().exit(0);
+    }
+    std::process::exit(0);
+}
 #[macro_export]
 macro_rules! error {
     ($result: expr) => {

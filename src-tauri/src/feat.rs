@@ -4,9 +4,13 @@
 //! - timer 定时器
 //! - cmds 页面调用
 //!
+use std::ops::ControlFlow;
+
 use crate::config::*;
 use crate::core::*;
+use crate::core::handle::Handle;
 use crate::log_err;
+use crate::utils::help;
 use anyhow::{bail, Result};
 use serde_yaml::{Mapping, Value};
 
@@ -99,6 +103,12 @@ pub fn disable_system_proxy() {
 
 // 切换tun模式
 pub fn toggle_tun_mode() {
+    // Check current user has admins right
+    // If user doesn't have right, we don't continue
+    if let ControlFlow::Break(_) = check_user_admin_right() {
+        return;
+    }
+
     let enable = Config::verge().data().enable_tun_mode.clone();
     let enable = enable.unwrap_or(false);
 
@@ -117,6 +127,12 @@ pub fn toggle_tun_mode() {
 
 // 打开tun模式
 pub fn enable_tun_mode() {
+    // Check current user has admins right
+    // If user doesn't have right, we don't continue
+    if let ControlFlow::Break(_) = check_user_admin_right() {
+        return;
+    }
+
     tauri::async_runtime::spawn(async {
         match patch_verge(IVerge {
             enable_tun_mode: Some(true),
@@ -132,6 +148,12 @@ pub fn enable_tun_mode() {
 
 // 关闭tun模式
 pub fn disable_tun_mode() {
+    // Check current user has admins right
+    // If user doesn't have right, we don't continue
+    if let ControlFlow::Break(_) = check_user_admin_right() {
+        return;
+    }
+
     tauri::async_runtime::spawn(async {
         match patch_verge(IVerge {
             enable_tun_mode: Some(false),
@@ -144,6 +166,26 @@ pub fn disable_tun_mode() {
         }
     });
 }
+
+
+fn check_user_admin_right() -> ControlFlow<()> {
+    let user_admin_right = help::user_has_admin_right();
+    // Error handling
+    if user_admin_right.is_err(){
+        let err = user_admin_right.clone().unwrap_err();
+        log::error!(target: "app", "{err}");
+    }
+    // If user doesn't have right, we don't continue
+    if !user_admin_right.unwrap(){
+        // Send a notice to user
+        Handle::notice_message("set_config::error", "The current user doesn't have admin permission\nProbably you are not a member of Administrative group");
+        // Set need to be focus to true, it's handled in another thread
+        help::set_focus();
+        return ControlFlow::Break(())
+    }
+    ControlFlow::Continue(())
+}
+
 
 /// 修改clash的配置
 pub async fn patch_clash(patch: Mapping) -> Result<()> {
