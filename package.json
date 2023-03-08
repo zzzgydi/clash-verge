@@ -1,12 +1,13 @@
 {
   "name": "HiddifyDesktop",
-  "version": "1.203.1",
+  "version": "1.203.2",
   "license": "GPL-3.0",
   "scripts": {
     "dev": "tauri dev",
     "dev:diff": "tauri dev -f verge-dev",
     "build": "tauri build",
     "tauri": "tauri",
+    "hid": "tauri signer generate -w myapp.key",
     "web:dev": "vite",
     "web:build": "tsc && vite build",
     "web:serve": "vite preview",
