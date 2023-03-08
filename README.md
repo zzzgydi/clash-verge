@@ -65,7 +65,14 @@ yarn build
 
 ## Screenshots
 
-![image](https://user-images.githubusercontent.com/114227601/221199313-824965b5-d983-4540-9ccc-6d8af6edf822.png)
+<div align="center" markdown="1">
+
+<img width="24%" src="https://user-images.githubusercontent.com/114227601/223690647-5cfbb09f-66a5-4990-b34d-bfadd36108ae.png" />
+<img width="24%" src="https://user-images.githubusercontent.com/114227601/223690953-37efa122-c876-40b8-80c9-762e26835080.png" />
+
+<img width="24%" src="https://user-images.githubusercontent.com/114227601/223690817-607926be-2a60-4d53-8fac-e8b1cfff6684.png" />
+<img width="24%" src="https://user-images.githubusercontent.com/114227601/223690854-7e8d88bf-15af-438f-8950-6d9804a0fa53.png" />
+</div>
 
 ## Disclaimer
 
