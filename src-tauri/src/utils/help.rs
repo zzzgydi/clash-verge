@@ -223,7 +223,7 @@ pub fn user_has_admin_right() -> Result<bool,String>{
         if user_id.is_err(){
             return Err("Error occurred during get UID variable from linux enviroment".to_string())
         }
-        if user_id.unwrap() == 0{
+        if user_id.unwrap() == "0" {
             Ok(true)
         }else{
             Ok(false)
