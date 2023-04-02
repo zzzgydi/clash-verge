@@ -49,7 +49,6 @@
     "@types/js-cookie": "^3.0.2",
     "@types/lodash": "^4.14.180",
     "@types/lodash-es": "^4.17.7",
-    "@types/react": "^18.0.32",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^2.0.1",
     "adm-zip": "^0.5.9",
