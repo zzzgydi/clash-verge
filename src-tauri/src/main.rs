@@ -86,6 +86,7 @@ async fn main() -> std::io::Result<()> {
             cmds::open_core_dir,
             // cmds::kill_sidecar,
             cmds::restart_sidecar,
+            cmds::grant_permission,
             // clash
             cmds::get_clash_info,
             cmds::get_clash_logs,

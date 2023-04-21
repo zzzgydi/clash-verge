@@ -549,6 +549,45 @@ dependencies = [
 ]
 
 [[package]]
+name = "clash-verge"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "auto-launch",
+ "chrono",
+ "ctrlc",
+ "deelevate",
+ "delay_timer",
+ "dirs 5.0.0",
+ "dunce",
+ "log 0.4.17",
+ "log4rs",
+ "nanoid",
+ "once_cell",
+ "open 4.0.1",
+ "parking_lot",
+ "port_scanner",
+ "reqwest",
+ "rquickjs",
+ "runas",
+ "serde",
+ "serde_json",
+ "serde_yaml 0.9.19",
+ "sysinfo",
+ "sysproxy",
+ "tauri",
+ "tauri-build",
+ "tauri-runtime-wry",
+ "tokio",
+ "warp",
+ "which 4.4.0",
+ "window-shadows",
+ "window-vibrancy",
+ "windows-sys 0.36.1",
+ "winreg",
+]
+
+[[package]]
 name = "cocoa"
 version = "0.24.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -999,7 +1038,16 @@ version = "4.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ca3aa72a6f96ea37bbc5aa912f6788242832f75369bdfdadcb0e38423f100059"
 dependencies = [
- "dirs-sys",
+ "dirs-sys 0.3.7",
+]
+
+[[package]]
+name = "dirs"
+version = "5.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dece029acd3353e3a58ac2e3eb3c8d6c35827a892edc6cc4138ef9c33df46ecd"
+dependencies = [
+ "dirs-sys 0.4.0",
 ]
 
 [[package]]
@@ -1021,6 +1069,17 @@ dependencies = [
  "libc",
  "redox_users",
  "winapi",
+]
+
+[[package]]
+name = "dirs-sys"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "04414300db88f70d74c5ff54e50f9e1d1737d9a5b90f53fcf2e95ca2a9ab554b"
+dependencies = [
+ "libc",
+ "redox_users",
+ "windows-sys 0.45.0",
 ]
 
 [[package]]
@@ -2696,6 +2755,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "open"
+version = "4.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "075c5203b3a2b698bc72c6c10b1f6263182135751d5013ea66e8a4b3d0562a43"
+dependencies = [
+ "pathdiff",
+]
+
+[[package]]
 name = "openssl"
 version = "0.10.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4000,9 +4068,15 @@ dependencies = [
 
 [[package]]
 name = "sysinfo"
+<<<<<<< HEAD
 version = "0.27.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fcd303550875ba33b137a7c93318cfdeb54c95e63ff7a0982d28425d3f87552c"
+=======
+version = "0.28.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d3e847e2de7a137c8c2cede5095872dbb00f4f9bf34d061347e36b43322acd56"
+>>>>>>> verge/main
 dependencies = [
  "cfg-if 1.0.0",
  "core-foundation-sys",
@@ -4015,9 +4089,9 @@ dependencies = [
 
 [[package]]
 name = "sysproxy"
-version = "0.2.0"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "58c9e02068d2fd8c0bbfc70ca394b369f59eb9f478b23b9269da47fa7150f006"
+checksum = "9707a79d3b95683aa5a9521e698ffd878b8fb289727c25a69157fb85d529ffff"
 dependencies = [
  "interfaces",
  "thiserror",
@@ -4134,7 +4208,7 @@ dependencies = [
  "minisign-verify",
  "objc",
  "once_cell",
- "open",
+ "open 3.4.0",
  "os_pipe",
  "percent-encoding",
  "rand 0.8.5",
@@ -4329,7 +4403,11 @@ version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "76971977e6121664ec1b960d1313aacfa75642adc93b9d4d53b247bd4cb1747e"
 dependencies = [
+<<<<<<< HEAD
  "dirs 2.0.2",
+=======
+ "dirs 4.0.0",
+>>>>>>> verge/main
  "fnv",
  "nom 5.1.2",
  "phf 0.8.0",

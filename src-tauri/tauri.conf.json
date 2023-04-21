@@ -1,7 +1,7 @@
 {
   "package": {
     "productName": "HiddifyDesktop",
-    "version": "1.203.2"
+    "version": "1.301.3"
   },
   "build": {
     "distDir": "../dist",

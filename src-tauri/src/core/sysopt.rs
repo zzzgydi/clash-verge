@@ -25,7 +25,7 @@ pub struct Sysopt {
 #[cfg(target_os = "windows")]
 static DEFAULT_BYPASS: &str = "localhost;127.*;192.168.*;<local>";
 #[cfg(target_os = "linux")]
-static DEFAULT_BYPASS: &str = "localhost,127.0.0.1/8,::1";
+static DEFAULT_BYPASS: &str = "localhost,127.0.0.1,::1";
 #[cfg(target_os = "macos")]
 static DEFAULT_BYPASS: &str = "127.0.0.1,localhost,<local>";
 
@@ -178,18 +178,15 @@ impl Sysopt {
             use tauri::Manager;
 
             let handle = Handle::global();
-            handle
-                .app_handle
-                .lock()
-                .as_ref()
-                .map(|app_handle| {
-                    app_handle
-                        .env()
-                        .appimage
+            match handle.app_handle.lock().as_ref() {
+                Some(app_handle) => {
+                    let appimage = app_handle.env().appimage;
+                    appimage
                         .and_then(|p| p.to_str().map(|s| s.to_string()))
-                })
-                .unwrap_or(Some(app_path))
-                .unwrap()
+                        .unwrap_or(app_path)
+                }
+                None => app_path,
+            }
         };
 
         let auto = AutoLaunchBuilder::new()

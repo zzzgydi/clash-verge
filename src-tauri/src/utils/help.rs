@@ -2,10 +2,12 @@ use anyhow::{anyhow, bail, Context, Result};
 use nanoid::nanoid;
 use serde::{de::DeserializeOwned, Serialize};
 use serde_yaml::{Mapping, Value};
+<<<<<<< HEAD
 use std::{fs, path::PathBuf, process::Command, str::FromStr, thread};
 use tauri::{AppHandle, api};
 use std::time::Duration;
 use crate::{utils::resolve, cmds};
+use std::{fs, path::PathBuf, str::FromStr};
 
 /// read data from yaml as struct T
 pub fn read_yaml<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
@@ -14,19 +16,21 @@ pub fn read_yaml<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
     }
 
     let yaml_str = fs::read_to_string(&path)
-        .context(format!("failed to read the file \"{}\"", path.display()))?;
+        .with_context(|| format!("failed to read the file \"{}\"", path.display()))?;
 
-    serde_yaml::from_str::<T>(&yaml_str).context(format!(
-        "failed to read the file with yaml format \"{}\"",
-        path.display()
-    ))
+    serde_yaml::from_str::<T>(&yaml_str).with_context(|| {
+        format!(
+            "failed to read the file with yaml format \"{}\"",
+            path.display()
+        )
+    })
 }
 
 /// read mapping from yaml fix #165
 pub fn read_merge_mapping(path: &PathBuf) -> Result<Mapping> {
     let mut val: Value = read_yaml(path)?;
     val.apply_merge()
-        .context(format!("failed to apply merge \"{}\"", path.display()))?;
+        .with_context(|| format!("failed to apply merge \"{}\"", path.display()))?;
 
     Ok(val
         .as_mapping()
@@ -48,7 +52,8 @@ pub fn save_yaml<T: Serialize>(path: &PathBuf, data: &T, prefix: Option<&str>) -
     };
 
     let path_str = path.as_os_str().to_string_lossy().to_string();
-    fs::write(path, yaml_str.as_bytes()).context(format!("failed to save file \"{path_str}\""))
+    fs::write(path, yaml_str.as_bytes())
+        .with_context(|| format!("failed to save file \"{path_str}\""))
 }
 
 const ALPHABET: [char; 62] = [
@@ -82,29 +87,18 @@ pub fn parse_str<T: FromStr>(target: &str, key: &str) -> Option<T> {
 /// open file
 /// use vscode by default
 pub fn open_file(path: PathBuf) -> Result<()> {
+    #[cfg(target_os = "macos")]
+    let code = "Visual Studio Code";
+    #[cfg(not(target_os = "macos"))]
+    let code = "code";
+
     // use vscode first
-    if let Ok(code) = which::which("code") {
-        let mut command = Command::new(&code);
-
-        #[cfg(target_os = "windows")]
-        {
-            use std::os::windows::process::CommandExt;
-            if let Err(err) = command.creation_flags(0x08000000).arg(&path).spawn() {
-                log::error!(target: "app", "failed to open with VScode `{err}`");
-                open::that(path)?;
-            }
-        }
-
-        #[cfg(not(target_os = "windows"))]
-        if let Err(err) = command.arg(&path).spawn() {
-            log::error!(target: "app", "failed to open with VScode `{err}`");
-            open::that(path)?;
-        }
-
-        return Ok(());
+    if let Err(err) = open::with(&path, code) {
+        log::error!(target: "app", "failed to open file with VScode `{err}`");
+        // default open
+        open::that(path)?;
     }
 
-    open::that(path)?;
     Ok(())
 }
 
