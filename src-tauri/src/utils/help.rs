@@ -2,12 +2,11 @@ use anyhow::{anyhow, bail, Context, Result};
 use nanoid::nanoid;
 use serde::{de::DeserializeOwned, Serialize};
 use serde_yaml::{Mapping, Value};
-<<<<<<< HEAD
 use std::{fs, path::PathBuf, process::Command, str::FromStr, thread};
 use tauri::{AppHandle, api};
 use std::time::Duration;
 use crate::{utils::resolve, cmds};
-use std::{fs, path::PathBuf, str::FromStr};
+
 
 /// read data from yaml as struct T
 pub fn read_yaml<T: DeserializeOwned>(path: &PathBuf) -> Result<T> {
