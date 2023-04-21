@@ -186,13 +186,13 @@ const ProfilePage = () => {
         >
           {t("Import")}
         </Button>
-        <Button
+        {/* <Button
           variant="contained"
           size="small"
           onClick={() => viewerRef.current?.create()}
         >
           {t("New")}
-        </Button>
+        </Button> */}
       </Stack>
 
       <Box sx={{ mb: 4.5 }}>
