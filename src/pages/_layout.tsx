@@ -73,6 +73,9 @@ const Layout = () => {
     if (language) {
       dayjs.locale(language === "zh" ? "zh-cn" : language);
       i18next.changeLanguage(language);
+      if (language === "fa") {
+        document.body.style.direction = "rtl";
+      }
     }
   }, [language]);
 

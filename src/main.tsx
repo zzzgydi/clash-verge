@@ -1,5 +1,6 @@
 /// <reference types="vite/client" />
 /// <reference types="vite-plugin-svgr/client" />
+import "./assets/styles/Vazirmatn-font-face.css";
 import "./assets/styles/index.scss";
 
 import { ResizeObserver } from "@juggle/resize-observer";
