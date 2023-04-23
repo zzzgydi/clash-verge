@@ -184,6 +184,10 @@ pub async fn select_last_profile() -> Result<(),()>{
     }
 }
 pub fn user_has_admin_right() -> Result<bool,String>{
+    #[cfg(target_os = "macos")]
+    {
+        return Err("This program doesn't supports Mac operating system yet!!!")
+    }
     #[cfg(target_os = "windows")]
     // Check user is in administrators group
     {
