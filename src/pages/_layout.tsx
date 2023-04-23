@@ -75,6 +75,8 @@ const Layout = () => {
       i18next.changeLanguage(language);
       if (language === "fa") {
         document.body.style.direction = "rtl";
+      } else {
+        document.body.style.direction = "ltr";
       }
     }
   }, [language]);
