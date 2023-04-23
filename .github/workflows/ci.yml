@@ -14,8 +14,8 @@ jobs:
   release:
     strategy:
       matrix:
-        # os: [windows-latest, ubuntu-latest, macos-latest]
-        os: [macos-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        # os: [macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
