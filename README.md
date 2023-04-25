@@ -1,7 +1,7 @@
 <h1 align="center">
   <img src="./src/assets/image/logo.png" alt="Clash" width="128" />
   <br>
-  Hiddify Desktop
+  Hiddify Clash Desktop
   <br>
 </h1>
 
@@ -9,7 +9,8 @@
 A <a href="https://github.com/MetaCubeX/Clash.Meta">Clash Meta</a> GUI based on <a href="https://github.com/tauri-apps/tauri">tauri</a>.
 </h3>
 
-## Why HiddifyDesktop?
+## Why HiddifyClashDesktop?
+
 - It supports Vless and custom browser fingerprinting (simulate Chrome fingerprint for example)
 - Optimized for beginners
 - Support deep linking in windows (You can click on clash links and it will import the config)
@@ -17,6 +18,7 @@ A <a href="https://github.com/MetaCubeX/Clash.Meta">Clash Meta</a> GUI based on 
 - And more is comming :-)
 
 ## Features
+
 - Supports Trojan, Vless, Vmess, Shadowsocks, v2ray, SSR, ShadowTLS, tuic, ....
 - Rule based proxy. So you can easily ignore not blocked sites :)
 - Full `clash` config supported, Partial `clash premium` config supported.
@@ -27,7 +29,7 @@ A <a href="https://github.com/MetaCubeX/Clash.Meta">Clash Meta</a> GUI based on 
 
 ## Install
 
-Download from [release](https://github.com/hiddify/HiddifyDesktop/releases). Supports Windows x64, Linux x86_64 and macOS 11+
+Download from [release](https://github.com/hiddify/HiddifyClashDesktop/releases). Supports Windows x64, Linux x86_64 and macOS 11+
 
 Or you can build it yourself. Supports Windows, Linux and macOS 10.15+
 
@@ -84,7 +86,7 @@ Issue and PR welcome!
 
 ## Acknowledgement
 
-Hiddify Desktop was based on or inspired by these projects and so on:
+Hiddify Clash Desktop was based on or inspired by these projects and so on:
 
 - [clash-verge](https://github.com/zzzgydi/clash-verge): directly forked
 - [tauri-apps/tauri](https://github.com/tauri-apps/tauri): Build smaller, faster, and more secure desktop applications with a web frontend.

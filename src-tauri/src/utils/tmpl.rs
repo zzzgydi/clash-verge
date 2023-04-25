@@ -1,7 +1,7 @@
 ///! Some config file template
 
 /// template for new a profile item
-pub const ITEM_LOCAL: &str = "# Profile Template for Hiddify Desktop
+pub const ITEM_LOCAL: &str = "# Profile Template for Hiddify Clash Desktop
 
 proxies:
 
@@ -11,7 +11,7 @@ rules:
 ";
 
 /// enhanced profile
-pub const ITEM_MERGE: &str = "# Merge Template for Hiddify Desktop
+pub const ITEM_MERGE: &str = "# Merge Template for Hiddify Clash Desktop
 # The `Merge` format used to enhance profile
 
 prepend-rules:

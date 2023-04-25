@@ -17,7 +17,7 @@ async function resolvePortable() {
 
   const zip = new AdmZip();
 
-  zip.addLocalFile(path.join(releaseDir, "Hiddify Desktop.exe"));
+  zip.addLocalFile(path.join(releaseDir, "Hiddify Clash Desktop.exe"));
   zip.addLocalFile(path.join(releaseDir, "clash.exe"));
   zip.addLocalFile(path.join(releaseDir, "clash-meta.exe"));
   zip.addLocalFolder(path.join(releaseDir, "resources"), "resources");

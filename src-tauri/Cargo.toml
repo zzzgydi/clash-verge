@@ -1,10 +1,10 @@
 [package]
 name = "hiddify-desktop"
 version = "0.1.0"
-description = "hiddify desktop"
+description = "Hiddify Clash Desktop"
 authors = ["zzzgydi"]
 license = "GPL-3.0"
-repository = "https://github.com/hiddify/HiddifyDesktop.git"
+repository = "https://github.com/hiddify/HiddifyClashDesktop.git"
 default-run = "hiddify-desktop"
 edition = "2021"
 build = "build.rs"

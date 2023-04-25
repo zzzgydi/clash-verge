@@ -88,7 +88,7 @@ jobs:
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
         with:
           tagName: meta
-          releaseName: "Hiddify Desktop Meta"
+          releaseName: "Hiddify Clash Desktop Meta"
           releaseBody: ""
           releaseDraft: false
           prerelease: true

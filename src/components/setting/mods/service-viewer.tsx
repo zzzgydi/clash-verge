@@ -90,7 +90,7 @@ export const ServiceViewer = forwardRef<DialogRef, Props>((props, ref) => {
 
       {(state === "unknown" || state === "uninstall") && (
         <Typography>
-          Information: Please make sure that the Hiddify Desktop Service is
+          Information: Please make sure that the Hiddify Clash Desktop Service is
           installed and enabled
         </Typography>
       )}

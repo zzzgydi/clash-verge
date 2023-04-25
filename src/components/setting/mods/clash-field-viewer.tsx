@@ -100,7 +100,7 @@ export const ClashFieldViewer = forwardRef<DialogRef>((props, ref) => {
 
       <Divider sx={{ my: 1 }}>
         <Typography color="text.secondary" fontSize={14}>
-          Hiddify Desktop Control Fields
+          Hiddify Clash Desktop Control Fields
         </Typography>
       </Divider>
 

@@ -28,7 +28,7 @@ async fn main() -> std::io::Result<()> {
     #[cfg(not(target_os = "macos"))]
     {
         // Deep linking
-       deep_link::prepare("app.HiddifyDesktop");
+       deep_link::prepare("app.HiddifyClashDesktop");
        // Define deep link handler
        let handler = | deep_link | async move {
            // Set need to be focus to true, it's handled in another thread

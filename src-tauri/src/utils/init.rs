@@ -75,21 +75,21 @@ pub fn init_config() -> Result<()> {
 
     crate::log_err!(dirs::clash_path().map(|path| {
         if !path.exists() {
-            help::save_yaml(&path, &IClashTemp::template().0, Some("# Hiddify Desktop"))?;
+            help::save_yaml(&path, &IClashTemp::template().0, Some("# Hiddify Clash Desktop"))?;
         }
         <Result<()>>::Ok(())
     }));
 
     crate::log_err!(dirs::verge_path().map(|path| {
         if !path.exists() {
-            help::save_yaml(&path, &IVerge::template(), Some("# Hiddify Desktop"))?;
+            help::save_yaml(&path, &IVerge::template(), Some("# Hiddify Clash Desktop"))?;
         }
         <Result<()>>::Ok(())
     }));
 
     crate::log_err!(dirs::profiles_path().map(|path| {
         if !path.exists() {
-            help::save_yaml(&path, &IProfiles::template(), Some("# Hiddify Desktop"))?;
+            help::save_yaml(&path, &IProfiles::template(), Some("# Hiddify Clash Desktop"))?;
         }
         <Result<()>>::Ok(())
     }));

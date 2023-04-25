@@ -54,7 +54,7 @@ pub fn create_window(app_handle: &AppHandle) {
         "main".to_string(),
         tauri::WindowUrl::App("index.html".into()),
     )
-    .title("Hiddify Desktop")
+    .title("Hiddify Clash Desktop")
     .center()
     .fullscreen(false)
     .min_inner_size(600.0, 520.0);
