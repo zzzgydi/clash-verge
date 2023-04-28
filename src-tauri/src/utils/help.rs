@@ -184,6 +184,7 @@ pub async fn select_last_profile() -> Result<(),()>{
     }
 }
 pub fn user_has_admin_right() -> Result<bool,String>{
+    //TODO: @sarina find a way to check admin right in mac os
     #[cfg(target_os = "macos")]
     {
         return Err("This program doesn't supports Mac operating system yet!!!".to_string())
