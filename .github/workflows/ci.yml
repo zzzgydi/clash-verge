@@ -16,7 +16,6 @@ jobs:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
-    if: startsWith(github.repository, 'zzzgydi')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
