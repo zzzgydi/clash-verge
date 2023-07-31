@@ -88,7 +88,7 @@
   "theme.light": "Светлая",
   "theme.dark": "Тёмная",
   "theme.system": "Системная",
-  "Clash Field": "Clash Field",
+  "Clash Field": "Используемые настройки Clash",
   "Runtime Config": "Используемый конфиг",
   "ReadOnly": "Только для чтения",
   "Restart": "Перезапуск",
