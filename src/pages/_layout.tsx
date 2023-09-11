@@ -1,26 +1,26 @@
-import dayjs from "dayjs";
-import i18next from "i18next";
-import relativeTime from "dayjs/plugin/relativeTime";
-import { SWRConfig, mutate } from "swr";
-import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { Route, Routes } from "react-router-dom";
-import { alpha, List, Paper, ThemeProvider } from "@mui/material";
-import { listen } from "@tauri-apps/api/event";
-import { appWindow } from "@tauri-apps/api/window";
-import { routers } from "./_routers";
-import { getAxios } from "@/services/api";
-import { useVerge } from "@/hooks/use-verge";
 import { ReactComponent as LogoSvg } from "@/assets/image/logo.svg";
 import { BaseErrorBoundary, Notice } from "@/components/base";
-import { LayoutItem } from "@/components/layout/layout-item";
 import { LayoutControl } from "@/components/layout/layout-control";
+import { LayoutItem } from "@/components/layout/layout-item";
 import { LayoutTraffic } from "@/components/layout/layout-traffic";
 import { UpdateButton } from "@/components/layout/update-button";
 import { useCustomTheme } from "@/components/layout/use-custom-theme";
+import { useVerge } from "@/hooks/use-verge";
+import { getAxios } from "@/services/api";
 import getSystem from "@/utils/get-system";
+import { List, Paper, ThemeProvider, alpha } from "@mui/material";
+import { listen } from "@tauri-apps/api/event";
+import { appWindow } from "@tauri-apps/api/window";
+import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import "dayjs/locale/zh-cn";
+import relativeTime from "dayjs/plugin/relativeTime";
+import i18next from "i18next";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Route, Routes } from "react-router-dom";
+import { SWRConfig, mutate } from "swr";
+import { routers } from "./_routers";
 
 dayjs.extend(relativeTime);
 
@@ -107,7 +107,7 @@ const Layout = () => {
             }),
           ]}
         >
-          <div className="layout__left" data-windrag>
+          <div className="layout__left" data-windrag data-tauri-drag-region>
             <div className="the-logo" data-windrag>
               <LogoSvg />
 
@@ -129,7 +129,7 @@ const Layout = () => {
             </div>
           </div>
 
-          <div className="layout__right" data-windrag>
+          <div className="layout__right" data-windrag data-tauri-drag-region>
             {OS === "windows" && (
               <div className="the-bar">
                 <LayoutControl />
