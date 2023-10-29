@@ -124,6 +124,26 @@ impl IClashTemp {
             Err(_) => "127.0.0.1:9090".into(),
         }
     }
+
+    pub fn get_tun_device_ip(&self) -> String {
+        let config = &self.0;
+
+        let ip = config
+            .get("dns")
+            .and_then(|value| match value {
+                Value::Mapping(val_map) => Some(val_map.get("fake-ip-range").and_then(
+                    |fake_ip_range| match fake_ip_range {
+                        Value::String(ip_range_val) => Some(ip_range_val.replace("1/16", "2")),
+                        _ => None,
+                    },
+                )),
+                _ => None,
+            })
+            // 默认IP
+            .unwrap_or(Some("198.18.0.2".to_string()));
+
+        ip.unwrap()
+    }
 }
 
 #[derive(Default, Debug, Clone, Deserialize, Serialize, PartialEq, Eq)]
